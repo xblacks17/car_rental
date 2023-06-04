@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\RentalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ Route::get('/', function () {
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'canRent' => Route::has('rental'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -51,12 +53,30 @@ Route::middleware([
 
         Route::get('cars', [VehicleController::class, 'index'])->name('cars.index');
         Route::post('cars', [VehicleController::class, 'store'])->name('cars.add');
-        Route::put('cars/{car}', [VehicleController::class, 'edit'])->name('cars.edit');
+        Route::post('cars/{car}', [VehicleController::class, 'edit'])->name('cars.edit');
         Route::delete('cars/{car}', [VehicleController::class, 'destroy'])->name('cars.delete');
 
-      
-        Route::get('/books', function () {
-            return Inertia::render('Admin/Books');
-        })->name('books');
+        Route::get('rentals', [RentalController::class, 'index'])->name('rentals.index');
+        Route::post('rentals', [RentalController::class, 'store'])->name('rentals.add');
+        Route::put('rentals/{rental}', [RentalController::class, 'edit'])->name('rentals.edit');
+        Route::delete('rental/{rental}', [RentalController::class, 'destroy'])->name('rentals.delete');
     });
+
+    Route::prefix('user')->group(function () {
+        Route::get('/dashboard', function () {
+            return Inertia::render('User/Dashboard');
+        })->name('dashboard');
+
+        Route::get('profile', [UserController::class, 'profile'])->name('profile.index');
+
+        Route::get('rentals', [UserController::class, 'rentals'])->name('user.rentals.index');
+        Route::post('rentals', [RentalController::class, 'store'])->name('bookings.store');
+        Route::post('rentals-approve', [RentalController::class, 'approve'])->name('rentals.approve');
+    });
+
+   
+   
 });
+Route::get('cars', [VehicleController::class, 'cars'])->name('cars');
+Route::get('cars/{vehicle}', [VehicleController::class, 'show'])->name('car');
+

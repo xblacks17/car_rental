@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rental;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
@@ -13,6 +14,21 @@ class UserController extends Controller
 
         return Inertia::render('Admin/Users', [
             'users' => User::all()
+        ]);
+    }
+    public function profile()
+    {
+
+        return Inertia::render('User/Profile');
+    }
+    public function rentals()
+    {
+
+        $rentals =  Rental::where('user_id', auth()->user()->id)->get();
+     
+
+        return Inertia::render('User/Rentals', [
+            'rentals' => $rentals,
         ]);
     }
 

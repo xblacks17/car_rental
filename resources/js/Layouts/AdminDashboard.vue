@@ -56,13 +56,7 @@ const logout = () => {
                                     </div>
                                 </div>
                                 <div class="spacer-20"></div>
-                                <ul class="menu-col">
-                                    <li>
-                                        <a href="/admin/dashboard" :class="{  'active': $page.url === '/admin/dashboard' }"
-                                            ><i class="fa fa-home"></i
-                                            >Dashboard</a
-                                        >
-                                    </li>
+                                <ul class="menu-col">                                   
                                     <li>
                                         <a href="/admin/companies" :class="{  'active': $page.url === '/admin/companies' }"
                                             ><i class="fa fa-user"></i>Companies</a
@@ -74,7 +68,7 @@ const logout = () => {
                                         >
                                     </li>
                                     <li>
-                                        <a href="/admin/books" :class="{  'active': $page.url === '/admin/books' }"
+                                        <a href="/admin/rentals" :class="{  'active': $page.url === '/admin/rentals' }"
                                             ><i class="fa fa-calendar"></i>Books</a
                                         >
                                     </li>

@@ -13,26 +13,23 @@ const logout = () => {
 
 <template>
     <div id="wrapper">
-        <header class="scroll-light has-topbar" style="background-color: #78CA5C;">
+        <header
+            class="scroll-light has-topbar"
+            style="background-color: #78ca5c"
+        >
             <div id="topbar" class="topbar-dark text-light">
                 <div class="container">
                     <div class="topbar-left xs-hide">
                         <div class="topbar-widget">
                             <div class="topbar-widget">
                                 <a href="#"
-                                    ><i class="fa fa-phone"></i>+208 333 9296</a
+                                    ><i class="fa fa-phone"></i>+263 783 9296</a
                                 >
                             </div>
                             <div class="topbar-widget">
                                 <a href="#"
                                     ><i class="fa fa-envelope"></i
-                                    >contact@carrental.com</a
-                                >
-                            </div>
-                            <div class="topbar-widget">
-                                <a href="#"
-                                    ><i class="fa fa-clock-o"></i>Mon - Fri
-                                    08.00 - 18.00</a
+                                    >rentaly@gmail.com</a
                                 >
                             </div>
                         </div>
@@ -88,40 +85,13 @@ const logout = () => {
                                             >Cars</a
                                         >
                                     </li>
-                                    <li>
-                                        <a class="menu-item" href="/booking"
-                                            >Booking</a
-                                        >
-                                    </li>
+
                                     <li v-if="$page.props.auth.user">
                                         <a
                                             class="menu-item"
-                                            href="account-dashboard.html"
+                                            href="/user/profile"
                                             >My Account</a
                                         >
-                                        <ul>
-                                            <li>
-                                                <a
-                                                    class="menu-item"
-                                                    href="/dashboard"
-                                                    >Dashboard</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a
-                                                    class="menu-item"
-                                                    href="/profile"
-                                                    >My Profile</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a
-                                                    class="menu-item"
-                                                    href="/my-bookings"
-                                                    >My Books</a
-                                                >
-                                            </li>
-                                        </ul>
                                     </li>
                                 </ul>
                             </div>
@@ -130,7 +100,10 @@ const logout = () => {
                                     class="menu_side_area"
                                     v-if="!$page.props.auth.user"
                                 >
-                                    <a href="login" class="btn-main" style="background-color: #222733;"
+                                    <a
+                                        href="login"
+                                        class="btn-main"
+                                        style="background-color: #222733"
                                         >Sign In</a
                                     >
                                     <span id="menu-btn"></span>
@@ -139,7 +112,10 @@ const logout = () => {
                                     class="menu_side_area"
                                     v-if="!$page.props.auth.user"
                                 >
-                                    <a href="register" class="btn-main" style="background-color: #222733;"
+                                    <a
+                                        href="register"
+                                        class="btn-main"
+                                        style="background-color: #222733"
                                         >Register</a
                                     >
                                     <span id="menu-btn"></span>
@@ -152,7 +128,7 @@ const logout = () => {
                                         href="#"
                                         class="btn-main"
                                         @click.prevent="logout"
-                                        style="background-color: #222733;"
+                                        style="background-color: #222733"
                                         >Log Out</a
                                     >
                                     <span id="menu-btn"></span>
@@ -193,44 +169,21 @@ const logout = () => {
                                     ><i
                                         class="id-color fa fa-map-marker fa-lg"
                                     ></i
-                                    >08 W 36th St, New York, NY 10001</span
+                                    >6 Fairway, Harare</span
                                 >
                                 <span
                                     ><i class="id-color fa fa-phone fa-lg"></i
-                                    >+1 333 9296</span
+                                    >+263 783 9296</span
                                 >
                                 <span
                                     ><i
                                         class="id-color fa fa-envelope-o fa-lg"
                                     ></i
                                     ><a href="mailto:contact@example.com"
-                                        >contact@example.com</a
+                                        >rentaly@gmail.com</a
                                     ></span
                                 >
-                                <span
-                                    ><i
-                                        class="id-color fa fa-file-pdf-o fa-lg"
-                                    ></i
-                                    ><a href="#">Download Brochure</a></span
-                                >
                             </address>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <h5>Quick Links</h5>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="widget">
-                                    <ul>
-                                        <li><a href="#">About</a></li>
-                                        <li><a href="#">Blog</a></li>
-                                        <li><a href="#">Careers</a></li>
-                                        <li><a href="#">News</a></li>
-                                        <li><a href="#">Partners</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -263,7 +216,7 @@ const logout = () => {
                             <div class="de-flex">
                                 <div class="de-flex-col">
                                     <a href="index.html">
-                                        Copyright 2023 - Rentaly by Designesia
+                                        Copyright 2023 - Rentaly by Maspeakers
                                     </a>
                                 </div>
                                 <ul class="menu-simple">

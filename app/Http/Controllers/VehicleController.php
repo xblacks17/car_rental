@@ -17,6 +17,24 @@ class VehicleController extends Controller
             'companies' => Company::all(),
         ]);
     }
+    public function cars(Request $request)
+    {
+        //check if we have location query
+        if ($request->location) {
+
+            //change location to lowercase
+            $location = strtolower($request->location);
+            
+            $cars = Vehicle::where('location', $location)->where('status', 'available')->get();
+        } else {
+            $cars = Vehicle::where('status', 'available')->get();
+        }
+
+        return Inertia::render('Cars', [
+            'cars' => $cars,
+            'companies' => Company::all(),
+        ]);
+    }
 
     public function store(Request $request)
     {
@@ -32,11 +50,9 @@ class VehicleController extends Controller
             'status' => 'required',
 
         ]);
-        //get image and upload
-        $image = $request->file('image_url');
-        $imageName = time() . '.' . $image->extension();
-        $image->move(public_path('images'), $imageName);
-
+        //get image and upload to public folder
+        $file = request()->file('image_url');
+        $imageName = $file->store('cars', ['disk' => 'public']);
 
         Vehicle::create([
             'make' => $request->make,
@@ -56,24 +72,24 @@ class VehicleController extends Controller
 
     public function edit(Vehicle $car, Request $request)
     {
-        $request->validate([
-            'make' => 'required',
-            'model' => 'required',
-            'reg_number' => 'required',
-            'image_url' => 'required',
-            'location' => 'required',
-            'unit_price' => 'required',
-            'mileage' => 'required',
-            'company_id' => 'required',
-            'description' => 'required',
-            'status' => 'required',
-        ]);
+
+        //check if image is uploaded
+        if ($request->hasFile('image_url')) {
+            //get image and upload to public folder
+            $file = request()->file('image_url');
+            $imageName = $file->store('cars', ['disk' => 'public']);
+            //update image
+            $car->update([
+                'image_url' => $imageName,
+            ]);
+        } else {
+            $imageName = $car->image_url;
+        }
 
         $car->update([
             'make' => $request->make,
             'model' => $request->model,
             'reg_number' => $request->reg_number,
-            'image_url' => $request->image_url,
             'location' => $request->location,
             'unit_price' => $request->unit_price,
             'mileage' => $request->mileage,
@@ -91,5 +107,12 @@ class VehicleController extends Controller
         $car->delete();
 
         return redirect()->back();
+    }
+
+    public function show(Vehicle $vehicle)
+    {
+        return Inertia::render('CarSingle', [
+            'car' => $vehicle,
+        ]);
     }
 }

@@ -18,6 +18,11 @@
                         <tr>
                             <th scope="col">
                                 <span class="text-uppercase fs-12 text-gray"
+                                    >Image</span
+                                >
+                            </th>
+                            <th scope="col">
+                                <span class="text-uppercase fs-12 text-gray"
                                     >ID</span
                                 >
                             </th>
@@ -31,11 +36,7 @@
                                     >Model</span
                                 >
                             </th>
-                            <th scope="col">
-                                <span class="text-uppercase fs-12 text-gray"
-                                    >Description</span
-                                >
-                            </th>
+
                             <th scope="col">
                                 <span class="text-uppercase fs-12 text-gray"
                                     >Reg Number</span
@@ -89,6 +90,15 @@
                                 </div>
                             </td>
                             <td>
+                                <img
+                                    :src="`/storage/${car.image_url}`"
+                                    alt=""
+                                    height="150"
+                                    width="150"
+                                    srcset=""
+                                />
+                            </td>
+                            <td>
                                 <span class="d-lg-none d-sm-block">{{
                                     car.make
                                 }}</span>
@@ -104,14 +114,7 @@
                                     {{ car.model }}
                                 </div>
                             </td>
-                            <td>
-                                <span class="d-lg-none d-sm-block">{{
-                                    car.description
-                                }}</span>
-                                <div class="badge bg-gray-100 text-dark">
-                                    {{ car.description }}
-                                </div>
-                            </td>
+
                             <td>
                                 <span class="d-lg-none d-sm-block">{{
                                     car.reg_number
@@ -223,62 +226,105 @@
                             @submit.prevent="submit"
                         >
                             <div class="field-set">
+                                <label for="name">Make</label>
+
                                 <input
                                     type="text"
                                     name="make"
                                     id="make"
                                     class="form-control"
                                     v-model="form.make"
-                                    placeholder="Vehicle Make"
                                 />
+                            </div>
+                            <div class="field-set">
+                                <label for="name">Model</label>
+
                                 <input
                                     type="text"
                                     name="model"
                                     id="model"
                                     class="form-control"
                                     v-model="form.model"
-                                    placeholder="Vehicle Model"
                                 />
+                            </div>
+                            <div class="field-set">
+                                <label for="name">Description</label>
+
                                 <input
                                     type="text"
                                     name="description"
                                     id="description"
                                     class="form-control"
                                     v-model="form.description"
-                                    placeholder="Vehicle Description"
                                 />
+                            </div>
+                            <div class="field-set">
+                                <label for="name">Reg Number</label>
+
                                 <input
                                     type="text"
                                     name="reg_number"
                                     id="reg_number"
                                     class="form-control"
                                     v-model="form.reg_number"
-                                    placeholder="Vehicle Registration Number"
                                 />
+                            </div>
+                            <div class="field-set">
+                                <label for="name">Image</label>
+
                                 <input
                                     type="file"
                                     name="image"
                                     id="image"
                                     class="form-control"
                                     @change="onFileChange"
-                                    placeholder="Vehicle Image"
                                 />
-                                <input
-                                    type="text"
-                                    name="location"
-                                    id="location"
+                            </div>
+                            <div class="field-set">
+                                <label for="name">Location</label>
+
+                                <select
+                                    id="pickup-time"
                                     class="form-control"
                                     v-model="form.location"
-                                    placeholder="Vehicle Location"
-                                />
-                                <input
-                                    type="text"
-                                    name="status"
-                                    id="status"
+                                >
+                                    <option
+                                        selected
+                                        disabled
+                                        value="Select Drop Off Location"
+                                    >
+                                        Location
+                                    </option>
+                                    <option
+                                        :value="location"
+                                        v-for="location in locations"
+                                    >
+                                        {{ location }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="field-set">
+                                <label for="name">Status</label>
+                                
+                                <select
+                                    id="pickup-time"
                                     class="form-control"
                                     v-model="form.status"
-                                    placeholder="Vehicle Status"
-                                />
+                                >
+                                    <option
+                                        selected
+                                        disabled
+                                        value="Select Drop Off Location"
+                                    >
+                                        Status
+                                    </option>
+                                    <option value="available">Available</option>
+                                    <option value="unavailable">Un Available</option>
+                                </select>
+                            </div>
+                            <div class="field-set">
+                                <label for="name">Daily Price</label>
+
                                 <input
                                     type="text"
                                     name="unit_price"
@@ -287,6 +333,10 @@
                                     v-model="form.unit_price"
                                     placeholder="Vehicle Unit Price"
                                 />
+                            </div>
+                            <div class="field-set">
+                                <label for="name">Mileage</label>
+
                                 <input
                                     type="text"
                                     name="mileage"
@@ -295,21 +345,22 @@
                                     v-model="form.mileage"
                                     placeholder="Vehicle Mileage"
                                 />
-                                <div class="field-set">
-                                    <label for="name">Company</label>
-                                    <select
-                                        name="cars"
-                                        v-model="form.company_id"
-                                        id="cars"
+                            </div>
+                            <div class="field-set">
+                                <label for="name">Company</label>
+                                <select
+                                    name="cars"
+                                    v-model="form.company_id"
+                                    id="cars"
+                                    class="form-control"
+                                >
+                                    <option
+                                        :value="company.id"
+                                        v-for="company in companies"
                                     >
-                                        <option
-                                            :value="company.id"
-                                            v-for="company in companies"
-                                        >
-                                            {{ company.name }}
-                                        </option>
-                                    </select>
-                                </div>
+                                        {{ company.name }}
+                                    </option>
+                                </select>
                             </div>
 
                             <div id="submit">
@@ -364,6 +415,7 @@ export default {
                 mileage: "",
                 company_id: "",
             }),
+            locations: ["Airport", "CBD", "Westgate", "Samy Levy", "Chisipite"],
 
             isEdit: false,
         };
@@ -415,7 +467,7 @@ export default {
 
         submitEdit() {
             // console.log(this.form.id);
-            this.form.put(`/admin/cars/${this.form.id}`, this.form, {
+            this.form.post(`/admin/cars/${this.form.id}`, this.form, {
                 onFinish: () => {
                     this.form.reset();
                     this.isEdit = false;
